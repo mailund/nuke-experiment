@@ -3,18 +3,22 @@ using System.Runtime.InteropServices;
 using Exchange;
 using Xunit;
 
+using NativeInterface;
+
 public class NativeAgentTests
 {
     private class TestNativeAgent
     {
         public int? InitAgentId { get; private set; }
         public IntPtr? InitExchangeHandle { get; private set; }
+        public IntPtr? InitExchangeVTablePtr { get; private set; }
         public int? LastEventId { get; private set; }
 
-        public void Init(IntPtr agentHandle, int agentId, IntPtr exchangeHandle)
+        public void Init(IntPtr agentHandle, int agentId, IntPtr exchangeHandle, IntPtr exchangeVtablePtr)
         {
             InitAgentId = agentId;
             InitExchangeHandle = exchangeHandle;
+            InitExchangeVTablePtr = exchangeVtablePtr;
         }
 
         public void OnEvent(IntPtr agentHandle, int eventId)

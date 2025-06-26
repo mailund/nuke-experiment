@@ -1,6 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+namespace NativeInterface;
+
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate IntPtr AgentFactory(out IntPtr vtablePtr);
 

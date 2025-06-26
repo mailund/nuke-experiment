@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Exchange;
@@ -18,6 +19,9 @@ public class Exchange
             Price = price
         };
         _orders[order.Id] = order;
+
+        Console.WriteLine($"Order added: Id={order.Id}, Quantity={order.Quantity}, Price={order.Price}");
+
         return order.Id;
     }
 
@@ -29,6 +33,7 @@ public class Exchange
             order.Price = newPrice;
             return true;
         }
+
         return false;
     }
 
@@ -54,5 +59,29 @@ public class Exchange
         {
             agent.OnEvent(eventId);
         }
+    }
+
+    public IEnumerable<Order> GetAllOrders()
+    {
+        return _orders.Values;
+    }
+
+    // Dispose of all agents and clear the agent list
+    public void Close()
+    {
+        foreach (var agent in _agents.Values)
+        {
+            if (agent is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+        }
+
+        _agents.Clear();
+    }
+
+    ~Exchange()
+    {
+        Close();
     }
 }

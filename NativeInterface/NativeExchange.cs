@@ -2,6 +2,9 @@ using System;
 using System.Runtime.InteropServices;
 using Exchange;
 
+
+namespace NativeInterface;
+
 public static class NativeExchange
 {
     [UnmanagedCallersOnly(EntryPoint = "exchange_add_order")]

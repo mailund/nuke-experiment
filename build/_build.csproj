@@ -15,6 +15,8 @@
     <PackageReference Include="Nuke.Common" Version="9.0.4" />
     <Compile Include="..\Exchange\Build.Exchange.cs" />
     <Compile Include="..\NativeInterface\Build.NativeInterface.cs" />
+    <Compile Include="..\ExchangeApp\Build.ExchangeApp.cs" />
+    <Compile Include="..\CPlugin\Build.CPlugin.cs" />
   </ItemGroup>
 
 </Project>

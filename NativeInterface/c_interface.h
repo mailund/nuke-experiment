@@ -2,16 +2,19 @@
 
 // Exhange
 typedef void *NativeExchangeHandle;
+typedef struct ExchangeVtable {
+  int (*add_order)(NativeExchangeHandle, double quantity, double price);
+  int (*update_order)(NativeExchangeHandle, int orderId, double quantity,
+                      double price);
+} ExchangeVtable;
 
-int exchange_add_order(NativeExchangeHandle handle, double quantity,
-                       double price);
-int exchange_update_order(NativeExchangeHandle handle, int orderId,
-                          double quantity, double price);
-
+// Agents
 typedef void *AgentHandle;
 typedef struct AgentVtable {
-  void (*init_agent)(AgentHandle, int agentId, NativeExchangeHandle exchange);
+  void (*init_agent)(AgentHandle, int agentId, NativeExchangeHandle exchange,
+                     struct ExchangeVtable *exchangeVtable);
   void (*event)(AgentHandle, int eventId);
+  void (*free)(AgentHandle);
 } AgentVtable;
 
 typedef AgentHandle (*AgentFactory)(AgentVtable **vtable_out);

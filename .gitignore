@@ -56,3 +56,5 @@ nunit-*.xml
 *.log
 Directory.Build.props
 Directory.Build.targets
+
+CPlugin/build

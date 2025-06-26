@@ -1,5 +1,8 @@
 using System;
+using Exchange;
 using System.Runtime.InteropServices;
+
+namespace NativeInterface;
 
 public class CNativeAgent : Exchange.IAgent
 {
@@ -14,14 +17,19 @@ public class CNativeAgent : Exchange.IAgent
 
     public void Init(int agentId, Exchange.Exchange exchange)
     {
-        // Call the C function pointer for init_agent
-        _vtable.init_agent(_agentHandle, agentId, exchange.CreateNativeHandle());
+        IntPtr exchangeVtablePtr = NativeExchangeHandle.CreateVTable(exchange);
+        _vtable.init_agent(_agentHandle, agentId, exchange.CreateNativeHandle(), exchangeVtablePtr);
+        // Optionally: store exchangeVtablePtr if you need to free it later
     }
 
     public void OnEvent(int eventId)
     {
-        // Call the C function pointer for event
         _vtable.event_(_agentHandle, eventId);
+    }
+
+    public void Dispose()
+    {
+        _vtable.free_agent(_agentHandle);
     }
 }
 
@@ -31,11 +39,16 @@ public struct AgentVtable
 {
     public InitAgentDelegate init_agent;
     public EventDelegate event_;
+    public FreeAgentDelegate free_agent;
 }
 
 // Callback definitions for the vtable
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-public delegate void InitAgentDelegate(IntPtr agentHandle, int agentId, IntPtr exchangeHandle);
+public delegate void InitAgentDelegate(IntPtr agentHandle, int agentId, IntPtr exchangeHandle, IntPtr exchangeVtablePtr);
 
 [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 public delegate void EventDelegate(IntPtr agentHandle, int eventId);
+
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+public delegate void FreeAgentDelegate(IntPtr agentHandle);
+

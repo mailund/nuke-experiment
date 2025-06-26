@@ -35,4 +35,9 @@ public class TestAgent : IAgent
     {
         // Handle event
     }
+
+    public void Dispose()
+    {
+        // Clean up resources if needed
+    }
 }

@@ -26,13 +26,18 @@
       "enum": [
         "Clean",
         "CleanExchange",
+        "CleanExchangeApp",
         "CleanNativeInterface",
         "Compile",
+        "CompileCPlugin",
         "CompileExchange",
+        "CompileExchangeApp",
         "CompileNativeInterface",
         "Restore",
         "RestoreExchange",
+        "RestoreExchangeApp",
         "RestoreNativeInterface",
+        "Run",
         "Test",
         "TestExchange",
         "TestNativeInterface"

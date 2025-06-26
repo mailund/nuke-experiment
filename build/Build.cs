@@ -15,16 +15,27 @@ partial class Build : NukeBuild
 
     [UsedImplicitly]
     Target Clean => targetDefinition => targetDefinition
-        .DependsOn(CleanExchange).DependsOn(CleanNativeInterface);
+        .DependsOn(CleanExchange).DependsOn(CleanNativeInterface).DependsOn(CleanExchangeApp);
 
     Target Restore => targetDefinition => targetDefinition
-        .DependsOn(RestoreExchange).DependsOn(RestoreNativeInterface);
+        .DependsOn(RestoreExchange).DependsOn(RestoreNativeInterface).DependsOn(RestoreExchangeApp);
 
     Target Compile => targetDefinition => targetDefinition
         .DependsOn(Restore)
-        .DependsOn(CompileExchange).DependsOn(CompileNativeInterface);
+        .DependsOn(CompileExchange).DependsOn(CompileNativeInterface).DependsOn(CompileExchangeApp);
 
     Target Test => targetDefinition => targetDefinition
         .DependsOn(Compile)
         .DependsOn(TestExchange).DependsOn(TestNativeInterface);
+
+    Target Run => targetDefinition => targetDefinition
+    .DependsOn(CompileExchangeApp)
+    .DependsOn(CompileCPlugin)
+    .Executes(() =>
+    {
+        // FIXME: This is probably not the best way to run the app, but it works for now.
+        var dynLibPath = System.IO.Path.GetFullPath("./CPlugin/build/libcplugin.dylib");
+        System.Diagnostics.Process.Start("dotnet", $"run --project ./ExchangeApp/ExchangeApp.csproj -- \"{dynLibPath}\"");
+    });
+
 }

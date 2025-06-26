@@ -2,6 +2,8 @@ using System;
 using System.Runtime.InteropServices;
 using Xunit;
 
+using NativeInterface;
+
 public class NativeExchangeTests
 {
     [Fact]
