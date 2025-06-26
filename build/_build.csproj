@@ -17,6 +17,7 @@
     <Compile Include="..\NativeInterface\Build.NativeInterface.cs" />
     <Compile Include="..\ExchangeApp\Build.ExchangeApp.cs" />
     <Compile Include="..\CPlugin\Build.CPlugin.cs" />
+    <Compile Include="..\rust_plugin\Build.RustPlugin.cs" />
   </ItemGroup>
 
 </Project>

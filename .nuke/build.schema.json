@@ -33,6 +33,7 @@
         "CompileExchange",
         "CompileExchangeApp",
         "CompileNativeInterface",
+        "CompileRustPlugin",
         "Restore",
         "RestoreExchange",
         "RestoreExchangeApp",

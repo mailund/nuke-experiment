@@ -31,11 +31,15 @@ partial class Build : NukeBuild
     Target Run => targetDefinition => targetDefinition
     .DependsOn(CompileExchangeApp)
     .DependsOn(CompileCPlugin)
+    .DependsOn(CompileRustPlugin)
     .Executes(() =>
     {
         // FIXME: This is probably not the best way to run the app, but it works for now.
-        var dynLibPath = System.IO.Path.GetFullPath("./CPlugin/build/libcplugin.dylib");
-        System.Diagnostics.Process.Start("dotnet", $"run --project ./ExchangeApp/ExchangeApp.csproj -- \"{dynLibPath}\"");
+        var dynLibPaths = new[] {
+            System.IO.Path.GetFullPath("./CPlugin/build/libcplugin.dylib"),
+            System.IO.Path.GetFullPath("./rust_plugin/target/release/librust_plugin.dylib")
+        };
+        System.Diagnostics.Process.Start("dotnet", $"run --project ./ExchangeApp/ExchangeApp.csproj -- {string.Join(" ", dynLibPaths)}");
     });
 
 }
