@@ -26,7 +26,7 @@ class Program
                 var factory = NativeAgentFactory.LoadFromLibrary(lib);
                 var agent = factory.CreateAgent();
                 Console.WriteLine($"Loaded agent from {basename}");
-                // exchange.ConnectAgent(agent);
+                exchange.ConnectAgent(agent);
                 Console.WriteLine($"Loaded and connected agent from {basename}");
             }
             catch (Exception ex)

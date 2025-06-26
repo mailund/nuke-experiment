@@ -11,7 +11,7 @@ pub trait Agent: Sized {
         VTABLE.get_or_init(|| agent_vtable_from_agent::<Self>())
     }
 
-    fn init(&mut self, agent_id: c_int, exchange: Exchange);
+    fn init(&mut self, agent_id: c_int, exchange: Exchange<'static>);
     fn event(&mut self, event_id: c_int);
 }
 
