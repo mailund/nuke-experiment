@@ -7,6 +7,6 @@ public partial class Build
         .Executes(() =>
         {
             var pluginDir = RootDirectory / "rust_plugin";
-            ProcessTasks.StartProcess("cargo", "build --release", pluginDir).AssertZeroExitCode();
+            ProcessTasks.StartProcess("cargo", "build --workspace --release ", pluginDir, logOutput: false, logInvocation: false).AssertZeroExitCode();
         });
 }

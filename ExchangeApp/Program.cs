@@ -21,14 +21,18 @@ class Program
         {
             try
             {
+                var basename = System.IO.Path.GetFileName(lib);
+                Console.WriteLine($"Loading agent from {basename}...");
                 var factory = NativeAgentFactory.LoadFromLibrary(lib);
                 var agent = factory.CreateAgent();
-                exchange.ConnectAgent(agent);
-                Console.WriteLine($"Loaded and connected agent from {lib}");
+                Console.WriteLine($"Loaded agent from {basename}");
+                // exchange.ConnectAgent(agent);
+                Console.WriteLine($"Loaded and connected agent from {basename}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to load agent from {lib}: {ex.Message}");
+                var basename = System.IO.Path.GetFileName(lib);
+                Console.WriteLine($"Failed to load agent from {basename}: {ex.Message}");
             }
         }
 

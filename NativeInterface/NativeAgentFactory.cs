@@ -19,8 +19,11 @@ public class NativeAgentFactory
     {
         IntPtr vtablePtr;
         IntPtr agentHandle = _factory(out vtablePtr);
+        Console.WriteLine($"Created agent with handle: {agentHandle}");
 
         var vtable = Marshal.PtrToStructure<AgentVtable>(vtablePtr);
+        Console.WriteLine($"Agent vtable: init_agent={vtable.init_agent}, event_={vtable.event_}, free_agent={vtable.free_agent}");
+
         return new CNativeAgent(agentHandle, vtable);
     }
 
@@ -34,6 +37,7 @@ public class NativeAgentFactory
             throw new InvalidOperationException("Could not find 'agent_factory' symbol in library.");
 
         // Marshal the symbol as a delegate
+        Console.WriteLine($"Loaded agent_factory symbol at: {symbolPtr}");
         var factory = Marshal.GetDelegateForFunctionPointer<AgentFactory>(symbolPtr);
 
         return new NativeAgentFactory(factory);
