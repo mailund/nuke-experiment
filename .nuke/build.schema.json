@@ -26,12 +26,16 @@
       "enum": [
         "Clean",
         "CleanExchange",
+        "CleanNativeInterface",
         "Compile",
         "CompileExchange",
+        "CompileNativeInterface",
         "Restore",
         "RestoreExchange",
+        "RestoreNativeInterface",
         "Test",
-        "TestExchange"
+        "TestExchange",
+        "TestNativeInterface"
       ]
     },
     "Verbosity": {

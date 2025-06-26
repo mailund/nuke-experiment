@@ -15,16 +15,16 @@ partial class Build : NukeBuild
 
     [UsedImplicitly]
     Target Clean => targetDefinition => targetDefinition
-        .DependsOn(CleanExchange);
+        .DependsOn(CleanExchange).DependsOn(CleanNativeInterface);
 
     Target Restore => targetDefinition => targetDefinition
-        .DependsOn(RestoreExchange);
+        .DependsOn(RestoreExchange).DependsOn(RestoreNativeInterface);
 
     Target Compile => targetDefinition => targetDefinition
         .DependsOn(Restore)
-        .DependsOn(CompileExchange);
+        .DependsOn(CompileExchange).DependsOn(CompileNativeInterface);
 
     Target Test => targetDefinition => targetDefinition
         .DependsOn(Compile)
-        .DependsOn(TestExchange);
+        .DependsOn(TestExchange).DependsOn(TestNativeInterface);
 }

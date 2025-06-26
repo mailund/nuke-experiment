@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <EnableUnmanagedCallersOnly>true</EnableUnmanagedCallersOnly>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Exchange\Exchange.csproj" />
+    <Compile Remove="Build.NativeInterface.cs" />
+    <Compile Remove="NativeInterface.Tests/**/*.cs" />
+  </ItemGroup>
+
+</Project>
