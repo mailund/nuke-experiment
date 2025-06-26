@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Exchange;
@@ -6,7 +5,7 @@ namespace Exchange;
 public class Exchange
 {
     private readonly Dictionary<int, Order> _orders = new();
-    private readonly Dictionary<int, Agent> _agents = new();
+    private readonly Dictionary<int, IAgent> _agents = new();
     private int _nextOrderId = 1;
     private int _nextAgentId = 1;
 
@@ -40,11 +39,11 @@ public class Exchange
     }
 
     // Add an agent to the exchange and return its assigned ID
-    public int ConnectAgent(Agent agent)
+    public int ConnectAgent(IAgent agent)
     {
-        agent.GetType(); // Ensures agent is not null
         var id = _nextAgentId++;
         _agents[id] = agent;
+        agent.Init(id, this);
         return id;
     }
 

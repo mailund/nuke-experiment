@@ -24,10 +24,12 @@ public class ExchangeTests
         order.ShouldBeNull();
     }
 }
-public class TestAgent : Agent
+public class TestAgent : IAgent
 {
-    public TestAgent() : base(0, "TestAgent") { }
-
+    public override void Init(int id, Exchange exchange)
+    {
+        // Initialize agent with ID and exchange reference
+    }
     public override void OnEvent(int eventId)
     {
         // Handle event

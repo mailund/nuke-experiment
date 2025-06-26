@@ -4,14 +4,14 @@ using Nuke.Common.Tools.DotNet;
 
 public partial class Build
 {
-    Target CleanExchange => _ => _
-    .Executes(() =>
-    {
-        DotNetClean(s => s.SetProject("Exchange/Exchange.csproj"));
-        DotNetClean(s => s.SetProject("Exchange/Exchange.Tests/Exchange.Tests.csproj"));
-    });
+    Target CleanExchange => targetDefinition => targetDefinition
+        .Executes(() =>
+        {
+            DotNetClean(s => s.SetProject("Exchange/Exchange.csproj"));
+            DotNetClean(s => s.SetProject("Exchange/Exchange.Tests/Exchange.Tests.csproj"));
+        });
 
-    Target RestoreExchange => _ => _
+    Target RestoreExchange => targetDefinition => targetDefinition
         .DependsOn(CleanExchange)
         .Executes(() =>
         {
@@ -19,7 +19,7 @@ public partial class Build
             DotNetRestore(s => s.SetProjectFile("Exchange/Exchange.Tests/Exchange.Tests.csproj"));
         });
 
-    Target CompileExchange => _ => _
+    Target CompileExchange => targetDefinition => targetDefinition
         .DependsOn(RestoreExchange)
         .Executes(() =>
         {
@@ -27,7 +27,7 @@ public partial class Build
                 .SetConfiguration(Configuration));
         });
 
-    Target TestExchange => _ => _
+    Target TestExchange => targetDefinition => targetDefinition
         .DependsOn(CompileExchange)
         .Executes(() =>
         {
