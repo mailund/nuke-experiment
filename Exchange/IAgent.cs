@@ -1,10 +1,7 @@
-using System;
-
 namespace Exchange;
 
-public abstract class IAgent
+public interface IAgent
 {
-    public abstract void Init(int id, Exchange exchange);
-    public abstract void OnEvent(int eventId);
+    public void Init(int id, Exchange exchange);
+    public void OnEvent(int eventId);
 }
-

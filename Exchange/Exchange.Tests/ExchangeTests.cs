@@ -1,5 +1,4 @@
-﻿using Xunit;
-using Shouldly;
+﻿using Shouldly;
 
 namespace Exchange.Tests;
 
@@ -24,13 +23,15 @@ public class ExchangeTests
         order.ShouldBeNull();
     }
 }
+
 public class TestAgent : IAgent
 {
-    public override void Init(int id, Exchange exchange)
+    public void Init(int id, Exchange exchange)
     {
         // Initialize agent with ID and exchange reference
     }
-    public override void OnEvent(int eventId)
+
+    public void OnEvent(int eventId)
     {
         // Handle event
     }
